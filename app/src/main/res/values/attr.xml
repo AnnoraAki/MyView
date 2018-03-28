@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleRingView">
+        <attr name="circleNum" format="integer" />
+        <attr name="processes" format="string" />
+        <attr name="colors" format="string"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="time" format="integer"/>
+    </declare-styleable>
+</resources>
