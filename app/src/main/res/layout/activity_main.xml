@@ -7,15 +7,16 @@
     tools:context="com.example.cynthia.myview.MainActivity">
 
     <com.example.cynthia.myview.CircleRingView
+        android:id="@+id/mring"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:circleNum="3"
-        app:colors="#33ccff,#3366ff,#FF4081"
-        app:processes="83.4,54.8,24.6"
+        app:circleNum="4"
+        app:colors="#33ccff,#3F51B5,#FF4081,#33ccff"
+        app:processes="83.4,54.8,24.6,90"
         app:time="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

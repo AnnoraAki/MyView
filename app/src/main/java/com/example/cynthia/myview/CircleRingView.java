@@ -41,7 +41,6 @@ public class CircleRingView extends View {
     private int circleNum;
     private float[] radiuses = new float[4];
     private float[] current = new float[4];
-    private int textSize;
     private String[] colors;
     private int backgroundColor;
     private int time;
@@ -68,7 +67,6 @@ public class CircleRingView extends View {
         TypedArray typeArray = getContext().obtainStyledAttributes(attr,R.styleable.CircleRingView);
         String color = typeArray.getString(R.styleable.CircleRingView_colors);
         String process = typeArray.getString(R.styleable.CircleRingView_processes);
-        textSize = typeArray.getInteger(R.styleable.CircleRingView_textSize,dp2px(12));
         time = typeArray.getInteger(R.styleable.CircleRingView_time,2);
         circleNum = typeArray.getInt(R.styleable.CircleRingView_circleNum,1);
         typeArray.recycle();
@@ -101,7 +99,7 @@ public class CircleRingView extends View {
             Paint mTextPaint = new Paint();
             mTextPaint.setAntiAlias(true);
             mTextPaint.setStyle(Paint.Style.STROKE);
-            mTextPaint.setTextSize(textSize);
+            mTextPaint.setTextSize(dp2px(12));
             mTextPaint.setColor(Color.parseColor(colors[i]));
             mTextPaints.add(mTextPaint);
 
@@ -242,6 +240,22 @@ public class CircleRingView extends View {
     private int dp2px(float dp) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
+    }
+
+    public void setColors(String color){
+        colors = color.split(",");
+    }
+
+    public void setProcesses(String processes1){
+        processes = processes1.split(",");
+    }
+
+    public void setTime(int time){
+        this.time = time;
+    }
+
+    public void setCircleNum(int circleNum){
+        this.circleNum = circleNum;
     }
 
 }
