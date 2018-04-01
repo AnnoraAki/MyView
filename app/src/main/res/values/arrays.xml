@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="colors">
+        <item>#33ccff</item>
+        <item>#3F51B5</item>
+        <item>#FF4081</item>
+        <item>#FF8247</item>
+    </string-array>
+
+    <string-array name="processes">
+        <item>83.4</item>
+        <item>37.9</item>
+        <item>90</item>
+        <item>57.6</item>
+    </string-array>
+</resources>
