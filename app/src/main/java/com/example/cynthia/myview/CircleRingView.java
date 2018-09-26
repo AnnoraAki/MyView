@@ -8,17 +8,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.icu.util.Measure;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Cynthia on 2018/3/24.
@@ -28,8 +23,8 @@ public class CircleRingView extends View {
     private Paint mBackgroundPaint;
     private Paint mProcessPaint;
     private Paint mTextPaint;
-
-    private List<RectF> mRectFs = new ArrayList<>();
+    private RectF rectF = new RectF();
+    private Rect mText = new Rect();
 
     private int circleNum;
     private float[] radiuses = new float[4];
@@ -41,6 +36,10 @@ public class CircleRingView extends View {
     private CharSequence[] processes;
     private float[] pcs;
     private float[] process = new float[4];
+    private float[] left = new float[4];
+    private float[] right = new float[4];
+    private float[] top = new float[4];
+    private float[] bottom = new float[4];
 
 
     //    层层调用使得所有的方式都放置到三参的构造函数之中处理
@@ -132,36 +131,28 @@ public class CircleRingView extends View {
      */
     private void addData(float radius, float length) {
 
-        float left = length / 2 - radius;
-        float top = length / 2 - radius;
-        float right = length - left;
-        float bottom = length - top;
-        RectF rectF = new RectF(left, top, right, bottom);
-        mRectFs.add(rectF);
+        left[0] = length / 2 - radius;
+        top[0] = length / 2 - radius;
+        right[0] = length - left[0];
+        bottom[0] = length - top[0];
         radiuses[0] = radius;
 
-        left = (float) (length / 2 - radius * 0.75);
-        top = (float) (length / 2 - radius * 0.75);
-        right = length - left;
-        bottom = length - top;
-        RectF rectF1 = new RectF(left, top, right, bottom);
-        mRectFs.add(rectF1);
+        left[1] = (float) (length / 2 - radius * 0.75);
+        top[1] = (float) (length / 2 - radius * 0.75);
+        right[1] = length - left[1];
+        bottom[1] = length - top[1];
         radiuses[1] = (float) (radius * 0.75);
 
-        left = (float) (length / 2 - radius * 0.5);
-        top = (float) (length / 2 - radius * 0.5);
-        right = length - left;
-        bottom = length - top;
-        RectF rectF2 = new RectF(left, top, right, bottom);
-        mRectFs.add(rectF2);
+        left[2] = (float) (length / 2 - radius * 0.5);
+        top[2] = (float) (length / 2 - radius * 0.5);
+        right[2] = length - left[2];
+        bottom[2] = length - top[2];
         radiuses[2] = (float) (radius * 0.5);
 
-        left = (float) (length / 2 - radius * 0.25);
-        top = (float) (length / 2 - radius * 0.25);
-        right = length - left;
-        bottom = length - top;
-        RectF rectF3 = new RectF(left, top, right, bottom);
-        mRectFs.add(rectF3);
+        left[3] = (float) (length / 2 - radius * 0.25);
+        top[3] = (float) (length / 2 - radius * 0.25);
+        right[3] = length - left[3];
+        bottom[3] = length - top[3];
         radiuses[3] = (float) (radius * 0.25);
     }
 
@@ -182,11 +173,11 @@ public class CircleRingView extends View {
         addData(radius,getWidth());
 
         for (int i = 0; i < circleNum; i++) {
-            RectF rectF = mRectFs.get(i);
+
+            rectF.set(left[i],top[i],right[i],bottom[i]);
 
             String mProcess = String.format("%.1f", process[i]);
             String text = mProcess + "%";
-            Rect mText = new Rect();
             mTextPaint.getTextBounds(text, 0, String.valueOf(text).length(), mText);
             mTextPaint.setColor(Color.parseColor(colors[i]));
 
@@ -226,7 +217,6 @@ public class CircleRingView extends View {
                 public void onAnimationUpdate(ValueAnimator animation) {
                     current[finalI] = (float) animation.getAnimatedValue();
                     process[finalI] = (float) animation.getAnimatedValue();
-                    Log.d("TAG", current + " ," + process + " ");
                     invalidate();
                 }
             });
